@@ -1,0 +1,45 @@
+#Trevor Kingery
+#Programming assignment 2, Part 2
+#output is the maximum value between A, B and C values.
+
+
+.data
+	A: .word 5
+	B: .word 9
+	C: .word 8
+.text
+	lw	$s0, A
+	lw	$s1, B
+	lw	$s2, C
+		
+main:	
+	slt	$t0, $s0, $s1
+	slt	$t1, $s0, $s2
+	slt	$t2, $s1, $s2
+	
+	bne	$t0, $zero, check1and2		#check $s0 < $s1
+	j	check0and2
+			
+check1and2:
+	bne	$t2, $zero, max_is_2		#check $s1 < $s2
+	move	$s3, $s1
+	j	end
+	
+	
+check0and2:
+	bne	$t1, $zero, max_is_2		#check $s0 < $s2
+	move	$s3, $s0
+	j	end
+
+max_is_2:
+	move	$s3, $s2
+	j	end
+	
+end:
+	# Print the squared element
+    	li $v0, 1               
+   	move $a0, $s3
+    	syscall
+    	
+	li	$v0, 10
+	syscall

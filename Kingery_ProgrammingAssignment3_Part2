@@ -1,0 +1,19 @@
+    .data
+N:      .word 0         # Integer N stored at memory address 5000
+Result1: .word 0        # Result of N x 8 stored at memory address 5004
+Result2: .word 0        # Result of N / 16 stored at memory address 5008
+
+    .text
+    .globl main
+
+main:
+    lw $t0, 5000($0)    # Load integer N
+    sll $t1, $t0, 3     # Shift left by 3 bits (equivalent to multiplying by 8)
+    sw $t1, Result1     # Store result of N x 8 at memory address 5004
+    
+    srl $t2, $t0, 4     # Shift right by 4 bits (equivalent to dividing by 16)
+    sw $t2, Result2     # Store result of N / 16 at memory address 5008
+    
+    # End program
+    li $v0, 10          # Exit syscall
+    syscall

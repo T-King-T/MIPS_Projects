@@ -1,0 +1,34 @@
+# Trevor Kingery
+# Programming Assignment 1
+# Question 2
+
+.data
+# Set variable values
+	A: .word 2
+	B: .word 4
+	C: .word 6
+	D: .word 3
+	Z: .word 0
+
+.text
+# load variables into registers S1-S5, according to the chart in the assignment
+	lw $s1, A
+	lw $s2, B
+	lw $s3, D
+	lw $s4, C
+	lw $s5, Z
+	
+main:	
+	add	$t0, $s1, $s2		#tmp = A + B = 2 + 4 = 6
+	sub	$s5, $s4, $s3		#Z = C - D = 6 - 3 = 3
+	mul	$s5, $t0, $s5		#Z = tmp * Z = 6 * 3 = 18
+
+# Print the value at $s5 to verify the correct value	
+	move	$a0, $s5    
+        li   	$v0, 1     
+        syscall
+
+# Exit call    
+        li   $v0, 10    
+        syscall
+

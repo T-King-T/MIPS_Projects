@@ -1,0 +1,37 @@
+# Trevor Kingery
+# Programming Assignment 1
+# Question 1
+
+.data
+# Set variable values
+	A: .word 13
+	B: .word 2
+	C: .word 2
+	D: .word 7
+	Z: .word 0
+
+.text
+# load variables into registers S1-S5, according to the chart in the assignment
+	lw $s1, A
+	lw $s2, B
+	lw $s3, D
+	lw $s4, C
+	lw $s5, Z
+	
+main:		
+	add	$t0, $s2, $s3		#tmp = B + D = 2 + 7 = 9
+	sub	$t0, $s1, $t0		#tmp = A - tmp = 13 - 9 = 4
+	sub	$s5, $t0, $s4		#Z = tmp - C = 4 - 2 = 2
+	
+# Print the value at $s5 to verify the correct value	
+	move	$a0, $s5    
+        li   	$v0, 1     
+        syscall
+        
+# Exit call
+        li   $v0, 10
+        syscall
+	
+	
+	
+	

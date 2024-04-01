@@ -1,0 +1,31 @@
+    .data
+array:      .space 400    # Allocate space for the array
+
+    .text
+    .globl main
+    
+main:
+    # Initialize variables
+    li $t0, 0          # Counter i = 0
+    li $t1, 1          # First Fibonacci number F0 = 0
+    li $t2, 1          # Second Fibonacci number F1 = 1
+    
+loop:
+    # Store Fibonacci number in array
+    sw $t1, 0($s1)     # Store F_i in the array
+    
+    # Calculate next Fibonacci number
+    add $t3, $t1, $t2  # F_i+1 = F_i + F_i-1
+    move $t1, $t2      # Shift variables to prepare for the next iteration
+    move $t2, $t3
+    
+    # Increment counter
+    addi $t0, $t0, 1   # i++
+    
+    # Check if the array is fully populated
+    slt $t4, $t0, $s0  # Compare i with size of array
+    bnez $t4, loop     # If i < size, repeat the loop
+    
+    # End program
+    li $v0, 10         # Exit syscall
+    syscall
